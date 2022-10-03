@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Coronavirus Tracker Application</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <!-- UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/css/uikit.min.css" />
+
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.10/dist/js/uikit-icons.min.js"></script>
 </head>
 <body>
+  <div class="uk-container">
+    <h1 class="uk-text-bold">Coronavirus Tracker App</h1>
+    <p>This application lists the current number of cases reported across the globe</p>
 
+    <div class="uk-card uk-card-secondary">
+      <h1 class="uk-text-bold uk-text-center" th:text="${totalReportedCases}"></h1>
+      <h3 class="uk-text-center uk-text-muted">Total cases reported as of today</h3>
+      <div class="uk-card-body">
+        <p>
+          <span>New cases reported since previous day:</span>
+          <span th:text="${totalNewCases}"></span>
+        </p>
+      </div>
+    </div>
+
+    <table class="uk-table">
+      <thead>
+      <tr>
+        <th>State</th>
+        <th>Country</th>
+        <th>Total cases reported</th>
+        <th>Changes since last day</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="locationStat : ${locationStats}">
+        <td th:text="${locationStat.state}"></td>
+        <td th:text="${locationStat.country}"></td>
+        <td th:text="${locationStat.latestTotalCases}">0</td>
+        <td th:text="${locationStat.diffFromPrevDay}">0</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>
